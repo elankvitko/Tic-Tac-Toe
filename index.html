@@ -5,7 +5,7 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/core.js"></script>
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="js/game.js"></script>
   </head>
   <body>
@@ -13,23 +13,27 @@
     <p>
       By: Elan Kvitko
     </p>
-    
+
     <table id="game-board">
-      <tr class="row-1">
+      <tr class="row-0">
+        <td class="col-0"></td>
         <td class="col-1"></td>
         <td class="col-2"></td>
-        <td class="col-3"></td>
+      </tr>
+      <tr class="row-1">
+        <td class="col-0"></td>
+        <td class="col-1"></td>
+        <td class="col-2"></td>
       </tr>
       <tr class="row-2">
+        <td class="col-0"></td>
         <td class="col-1"></td>
         <td class="col-2"></td>
-        <td class="col-3"></td>
-      </tr>
-      <tr class="row-3">
-        <td class="col-1"></td>
-        <td class="col-2"></td>
-        <td class="col-3"></td>
       </tr>
     </table>
+
+    <p class="win-statement">
+      The winner is
+    </p>
   </body>
 </html>
