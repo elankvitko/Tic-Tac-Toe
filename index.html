@@ -9,10 +9,39 @@
     <script src="js/game.js"></script>
   </head>
   <body>
-    <h1>Welcome To Tic Tac Toe</h1>
-    <p>
-      By: Elan Kvitko
-    </p>
+    <header>
+      <h1>Welcome To Tic Tac Toe</h1>
+      <p>
+        By: <a href="https://www.github.com/elankvitko">Elan Kvitko</a>
+      </p>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <p>
+          &nbsp | &nbsp
+        </p>
+        <a href="https://www.github.com/elankvitko/Tic-Tac-Toe">Source Code</a>
+      </nav>
+    </header>
+
+    <div class="info-container">
+      <h3>Instructions:</h3>
+      <p>
+        You are player X.
+        <br>
+        <br>
+        The objective of the game is to get X three times in a row no matter which fashion ( be it straight, across, or diagonal )
+        <br>
+        <br>
+        To begin, just click in any box you want to place an X in and continue until either you or the computer wins.
+        <br>
+        <br>
+        To Play again, just refresh the page or click <a href="index.html">Here</a>
+      </p>
+      <p class="win-statement">
+        The winner is
+      </p>
+    </div>
 
     <table id="game-board">
       <tr class="row-0">
@@ -31,9 +60,5 @@
         <td class="col-2"></td>
       </tr>
     </table>
-
-    <p class="win-statement">
-      The winner is
-    </p>
   </body>
 </html>

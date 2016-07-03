@@ -1,5 +1,54 @@
+header {
+  height: 180px;
+  background-color: #000;
+  padding-top: 1px;
+}
+
+header h1 {
+  color: #fff;
+  text-align: center;
+}
+
+header p {
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+}
+
+header p a {
+  color: #fff;
+}
+
+header nav {
+  text-align: center;
+}
+
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  display: inline;
+}
+
+header nav p {
+  display: inline;
+}
+
+div.info-container {
+  margin-left: 50px;
+  width: 450px;
+}
+
+table {
+  margin: 0 auto;
+  margin-top: -220px;
+}
+
 table tr td{
   width: 200px;
   height: 200px;
   border: 1px solid #000;
+  text-align: center;
+  font-size: 70px;
+  color: blue;
 }
