@@ -4,91 +4,33 @@ var board = [
               [ '.', '.', '.' ]
             ];
 
-var winningPatternsForX = [
+var winningPatterns = [
                         [
-                          [ 'X', 'X', 'X' ],
-                          [ '.', '.', '.' ],
-                          [ '.', '.', '.' ]
+                          [ 0, 0 ], [ 0, 1 ], [ 0, 2 ]
                         ],
                         [
-                          [ 'X', '.', '.' ],
-                          [ 'X', '.', '.' ],
-                          [ 'X', '.', '.' ]
+                          [ 1, 0 ], [ 1, 1 ], [ 1, 2 ]
                         ],
                         [
-                          [ 'X', '.', '.' ],
-                          [ '.', 'X', '.' ],
-                          [ '.', '.', 'X' ]
+                          [ 2, 0 ], [ 2, 1 ], [ 2, 2 ]
                         ],
                         [
-                          [ '.', 'X', '.' ],
-                          [ '.', 'X', '.' ],
-                          [ '.', 'X', '.' ]
+                          [ 0, 0 ], [ 1, 0 ], [ 2, 0 ]
                         ],
                         [
-                          [ '.', '.', 'X' ],
-                          [ '.', '.', 'X' ],
-                          [ '.', '.', 'X' ]
+                          [ 0, 1 ], [ 1, 1 ], [ 2, 1 ]
                         ],
                         [
-                          [ '.', '.', 'X' ],
-                          [ '.', 'X', '.' ],
-                          [ 'X', '.', '.' ]
+                          [ 0, 2 ], [ 1, 2 ], [ 2, 2 ]
                         ],
                         [
-                          [ '.', '.', '.' ],
-                          [ 'X', 'X', 'X' ],
-                          [ '.', '.', '.' ]
+                          [ 0, 0 ], [ 1, 1 ], [ 2, 2 ]
                         ],
                         [
-                          [ '.', '.', '.' ],
-                          [ '.', '.', '.' ],
-                          [ 'X', 'X', 'X' ]
-                        ],
+                          [ 0, 2 ], [ 1, 1 ], [ 2, 0 ]
+                        ]
                       ];
 
-var winningPatternsForO = [
-                        [
-                          [ 'O', 'O', 'O' ],
-                          [ '.', '.', '.' ],
-                          [ '.', '.', '.' ]
-                        ],
-                        [
-                          [ 'O', '.', '.' ],
-                          [ 'O', '.', '.' ],
-                          [ 'O', '.', '.' ]
-                        ],
-                        [
-                          [ 'O', '.', '.' ],
-                          [ '.', 'O', '.' ],
-                          [ '.', '.', 'O' ]
-                        ],
-                        [
-                          [ '.', 'O', '.' ],
-                          [ '.', 'O', '.' ],
-                          [ '.', 'O', '.' ]
-                        ],
-                        [
-                          [ '.', '.', 'O' ],
-                          [ '.', '.', 'O' ],
-                          [ '.', '.', 'O' ]
-                        ],
-                        [
-                          [ '.', '.', 'O' ],
-                          [ '.', 'O', '.' ],
-                          [ 'O', '.', '.' ]
-                        ],
-                        [
-                          [ '.', '.', '.' ],
-                          [ 'O', 'O', 'O' ],
-                          [ '.', '.', '.' ]
-                        ],
-                        [
-                          [ '.', '.', '.' ],
-                          [ '.', '.', '.' ],
-                          [ 'O', 'O', 'O' ]
-                        ],
-                      ];
 
 var Board = function() {
   this.board = board;
@@ -119,20 +61,30 @@ Board.prototype.playerMove = function( position, player ) {
 };
 
 Board.prototype.checkForWinner = function( player ) {
-  if ( player === 'X' ) {
-    for ( var idx = 0; idx < winningPatternsForX.length; idx++  ) {
-      if ( this.board.toString().replace( /O/g, '.' ) === winningPatternsForX[ idx ].toString() ) {
-        this.winner = player;
-        return true;
+  var allPositions = []
+  var matched = 0
+
+  this.board.forEach( function( row, idx ) {
+    row.forEach( function( letter, idx2 ) {
+      if ( letter === player ) {
+        allPositions.push( [ idx, idx2 ] );
+      };
+    });
+  });
+
+  for ( var idx = 0; idx < winningPatterns.length; idx++ ) {
+    for ( var idx2 = 0; idx2 < winningPatterns[ idx ].length; idx2++ ) {
+      for ( var idx3 = 0; idx3 < allPositions.length; idx3++ ) {
+        if ( winningPatterns[ idx ][ idx2 ].toString() === allPositions[ idx3 ].toString() ) {
+          matched ++
+          if ( matched === 3 ) {
+            this.winner = player;
+            return true;
+          };
+        };
       };
     };
-  } else if ( player === 'O' ) {
-    for ( var idx = 0; idx < winningPatternsForO.length; idx++  ) {
-      if ( this.board.toString().replace( /X/g, '.' ) === winningPatternsForO[ idx ].toString() ) {
-        this.winner = player;
-        return true;
-      };
-    };
+    matched = 0;
   };
   return false;
 };
@@ -158,25 +110,3 @@ Board.prototype.automateComputerTurn = function( player ) {
     this.currentPlayer = this.trace();
   }
 }
-
-$( document ).ready( function() {
-  var winStatement = $( 'p.win-statement' );
-  winStatement.hide();
-  var game = new Board();
-  var position = [];
-
-  $( 'td' ).on( 'click', function( e ) {
-    position[ 0 ] = parseInt( $( e.target ).parent().attr( 'class' ).match( /\d+/ )[ 0 ] );
-    position[ 1 ] = parseInt( $( e.target ).attr( 'class' ).match( /\d+/ )[ 0 ] );
-    this.playerMove( position, this.currentPlayer );
-    this.checkForWinner( this.currentPlayer );
-    this.turn ++;
-    this.currentPlayer = this.trace();
-    this.automateComputerTurn( this.currentPlayer );
-
-    if ( this.winner !== '.' ) {
-      winStatement.show();
-      winStatement.append( ' ' + this.winner );
-    };
-  }.bind( game ));
-});
